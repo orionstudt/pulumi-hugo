@@ -40,7 +40,7 @@ In this post, we will work through a simple example of running ALB based
 Kubernetes Ingresses with Pulumi
 [EKS](https://github.com/pulumi/pulumi-eks),
 [AWS](https://github.com/pulumi/pulumi-aws), and
-[AWSX](https://github.com/pulumi/pulumi-awsx/tree/master/nodejs/awsx)
+[AWSX](https://github.com/pulumi/pulumi-awsx/tree/master/sdk/nodejs)
 packages.
 
 <!--more-->
@@ -56,7 +56,7 @@ templates](https://github.com/pulumi/templates). We will use the
 `aws-typescript` template here and install all library
 dependencies.
 
-    $ brew install pulumi # download pulumi CLI
+    $ brew install pulumi/tap/pulumi # download pulumi CLI
     $ mkdir eks-alb-ingress && cd eks-alb-ingress
     $ pulumi new aws-typescript
     $ npm install --save @pulumi/kubernetes @pulumi/eks
