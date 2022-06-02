@@ -44,6 +44,16 @@ The API service is a Go-based application. This is a single binary application t
 
 This container runs an HTTP server which provides the APIs needed by the Console and the CLI. By default, this container will serve using port `8080` over standard HTTP. If [TLS](#tls-environment-variables) is configured the server will instead serve over port `8443` using HTTPS.
 
+#### Function Mode
+
+It's possible to split apart the HTTP Server from the Background Jobs functionality to distribute reponsibility across multiple instances. The function mode determines the mode in which the server runs based upon the env variable `PULUMI_API_CONTAINER_MODE`. If this value is not defined, or doesn't match a valid option, then it defaults to `FULL`.
+
+| Variable Name | Description                  |
+| ------------- | ---------------------------- |
+|	FULL          | Pulumi API & Background Jobs (Default) |
+| API           | Only Pulumi API              |
+| JOBS          | Only Background Jobs         |
+
 ## Environment Variables for Core Infrastructure
 
 The core infrastructure components to successfully run the API service are the database, object storage, and encryption services.
@@ -158,12 +168,20 @@ Azure Storage account key using the `AZURE_STORAGE_KEY` env var.
 | AZURE_SUBSCRIPTION_ID | (Optional) Subscription ID of the Azure AP. |
 | AZURE_STORAGE_DOMAIN | (Optional) The custom domain for your storage domain, if any. If this is not provided, the default Azure public domain "blob.core.windows.net" will be used. |
 
+### GitLab OAuth
+Only required if using GitLab as the backing identity provider for your organization.
+
+| Variable Name | Description |
+| ------------- | ----------- |
+| GITLAB_OAUTH_ID | GitLab OAuth app client ID. It is used for GitLab OAuth sign in. [Create a new GitLab OAuth app](https://gitlab.com/profile/applications). |
+| GITLAB_OAUTH_SECRET | GitLab OAuth app client secret. See above to create a new GitLab OAuth app. |
+| GITLAB_OAUTH_ENDPOINT | The domain for your GitLab instance. It defaults to `https://gitlab.com`, which should be used unless you are running GitLab on a custom domain. |
+
 ## Other Environment Variables {#other-env-vars}
 
 | Variable Name | Description |
 | ------------- | ----------- |
 | GITHUB_OAUTH_ENDPOINT | Used for GitHub API calls. |
-| GITLAB_OAUTH_ENDPOINT | Used for GitLab API calls. |
 | PULUMI_DATABASE_USER_NAME | Name of the database user the Pulumi Service connects as. Leave default unless you are having trouble connecting to your database.
 | PULUMI_DATABASE_USER_PASSWORD | Password of the database user the Pulumi Service connects as. Leave default unless you are having trouble connecting to your database.
 | PULUMI_DISABLE_EMAIL_LOGIN | When `true` the API will disallow logins using the email/password identity. To hide the email login option from the Console refer to the [email identity configuration]({{< relref "/docs/guides/self-hosted/components/console#email-identity" >}}) for the Console. |
