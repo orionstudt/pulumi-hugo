@@ -80,6 +80,11 @@ outputs:
 The example is a fully valid and self-contained Pulumi project. You only need one file to create resources in Pulumi YAML.
 {{% /notes %}}
 
+Further examples are given in the [Pulumi YAML GitHub repository][]. The specification for Pulumi
+YAML documents is in the [Pulumi YAML reference]({{< relref "/docs/reference/yaml" >}}).
+
+[Pulumi YAML GitHub repository]: https://github.com/pulumi/pulumi-yaml/tree/main/examples
+
 ## Templates
 
 The fastest way to start a new project is to use a template. The template will initialize a Pulumi
